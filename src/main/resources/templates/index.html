@@ -23,7 +23,7 @@
     <td th:text="${user.getUsername()}"></td>
     <td th:text="${user.getPassword()}"></td>
     <td>
-        <div th:each="role : ${user.getRoles()}" th:text="${role.getName()}">Roles</div>
+        <div th:each="role : ${user.getRoles()}" th:text="${role.getRole()}">Roles</div>
     <td>
     <td><button><a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a></button></td>
     <td> <form th:method="RequestMethod.DELETE" th:action="@{/{id}/delete/(id=${user.getId()})}">
@@ -32,5 +32,7 @@
 </tr>
 </table>
 <p><a href="/create">Create</a></p>
+<p><a href="/user">Show profile</a></p>
+<p><a href="/user" th:href="@{/logout}">Log out</a></p>
 </body>
 </html>

@@ -5,8 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,6 +22,9 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> roles;
 
     public User() {
@@ -117,4 +118,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

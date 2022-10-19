@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>Update</title>
+    <title>Update User</title>
 </head>
 <body>
 <form th:method="POST" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
@@ -21,14 +21,9 @@
     <label for="password">Enter Password:</label>
     <input type="text" th:field="*{password}" id="password">
     <br/>
-    <label>Роль:
-        <select size="2" multiple name="role" required="required">
-            <option selected="selected" value="1">USER</option>
-            <option value="2">ADMIN</option>
-        </select>
-    </label>
     <input type="submit" value="Update">
 </form>
+<p><a href="/user" th:href="@{/logout}">Log out</a></p>
 </body>
 </html>
 
