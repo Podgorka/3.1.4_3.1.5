@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Controller;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class AppController {
 
     private final UserService userService;
     private PasswordEncoder passwordEncoder;
     User user;
 
     @Autowired
-    public Controller(UserService userService, PasswordEncoder passwordEncoder) {
+    public AppController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
