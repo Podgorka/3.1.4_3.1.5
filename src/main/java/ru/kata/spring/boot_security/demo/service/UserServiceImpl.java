@@ -3,7 +3,7 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -25,6 +25,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @PersistenceContext
     private EntityManager entityManager;
     UserRepository userRepository;
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+
 
     @Autowired
     public UserServiceImpl(EntityManager entityManager, UserRepository userRepository) {
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Transactional
     @Override
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
 
     }
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userToBeUpdated.setLast_name(updatedUser.getLast_name());
         userToBeUpdated.setEmail(updatedUser.getEmail());
         userToBeUpdated.setUsername(updatedUser.getUsername());
-        userToBeUpdated.setPassword(updatedUser.getPassword());
+        userToBeUpdated.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         userToBeUpdated.setRoles(updatedUser.getRoles());
     }
 
@@ -84,4 +87,5 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
         return personNewThrow;
     }
+
 }

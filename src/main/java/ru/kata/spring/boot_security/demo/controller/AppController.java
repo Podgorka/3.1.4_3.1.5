@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,45 +18,40 @@ import java.security.Principal;
 public class AppController {
 
     private final UserService userService;
-    private PasswordEncoder passwordEncoder;
+
     User user;
 
     @Autowired
-    public AppController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AppController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, Principal principal, ModelMap model1, Model model2) {
         model.addAttribute("users", userService.listAll());
+        User user1 = (User) userService.loadUserByUsername(principal.getName());
+        model1.addAttribute("user1", user1);
+        model2.addAttribute("user2", new User());
         return "index";
     }
 
     @GetMapping("/users")
-    public String index1(Model model) {
+    public String index1( Model model, Principal principal, ModelMap model1, Model model2) {
         model.addAttribute("users", userService.listAll());
+        User user1 = (User) userService.loadUserByUsername(principal.getName());
+        model1.addAttribute("user1", user1);
+        model2.addAttribute("user2", new User());
         return "index";
     }
 
-    @GetMapping("/create")
-    public String createUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "create";
-    }
 
     @PostMapping
     public String createUser(@ModelAttribute("user") User user) {
+
         userService.save(user);
+
         return "redirect:/";
     }
-
-    @GetMapping(value = "/{id}/edit")
-    public String edit(ModelMap model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.show(id));
-        return "update";
-    }
-
     @PostMapping(value = "/users/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.update(id, user);
@@ -83,4 +77,11 @@ public class AppController {
         model.addAttribute("user", user);
         return "user";
     }
+    @GetMapping("/onlyForUsers")
+    public String getUserOnlyForUsers(Principal principal, ModelMap model) {
+        user = (User) userService.loadUserByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "onlyForUsers";
+    }
+
 }

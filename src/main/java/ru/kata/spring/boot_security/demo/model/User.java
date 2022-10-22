@@ -119,4 +119,8 @@ public class User implements UserDetails {
         return true;
     }
 
+
+    public String getRolesToString() {
+        return roles.toString();
+    }
 }
