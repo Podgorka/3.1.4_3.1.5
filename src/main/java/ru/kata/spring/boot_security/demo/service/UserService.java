@@ -8,18 +8,19 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
-     List<User> listAll();
+    List<User> listAll();
 
     @Transactional
      void delete(int id);
 
     @Transactional
-     void save(User user);
+    User save(User user);
 
     @Transactional
      void update(int id, User updatedUser);
 
-
      User show(int id);
 
+    @Transactional
+    User showUserByUsername(String username);
 }

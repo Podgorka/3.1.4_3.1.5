@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
     @Transactional
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
 
+        return user;
     }
     @Transactional
     @Override
@@ -88,4 +89,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return personNewThrow;
     }
 
+    @Override
+    @Transactional
+    public User showUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 }

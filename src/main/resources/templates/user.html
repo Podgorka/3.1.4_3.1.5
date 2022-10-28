@@ -1,80 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>All Users</title>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar fixed-top navbar-dark bg-dark">
-
-    <div class="navbar-brand" href="#!" th:text="${user.getUsername()} + ' with roles: ' + ${user.getRolesToString()}"></div>
-
-    <a href="/user" th:href="@{/logout}" align="left">Log out</a>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <form class="form-inline">
+            <b><!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
+                <span class="navbar-text-xl text-white" th:text="${user.email}"></span></b>
+            <span class="navbar-text-xl text-white">&nbsp with roles: &nbsp</span>
+            <!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
+            <span class="navbar-text-xl text-white" th:text="${user.getRolesAsString()}"></span>
+        </form>
+        <ul class="navbar-nav float-lg-right">
+            <li class="nav-item">
+                <a class="nav-link text-muted" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
 </nav>
-<br>
-<div class="container-fluid "  >
-    <div class="row ">
-        <header class="col-md-3 bg-white" style="height: auto; min-height: 100vh">
-            <nav class="sidebar-sticky  navbar-expand-md ">
-                <a href="#" class="logo navbar-brand"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <br><br>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto flex-column " >
-                        <li class="nav-item active">
-                            <a href="/" class=" nav-link">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/user" class="btn btn-primary nav-link">User</a>
-                        </li>
-                    </ul>
+
+<div class="container-fluid bg-light">
+    <div class="row">
+        <!--        левая колонка-->
+
+        <div class="col-lg-2 bg-white min-vh-100">
+            <ul class="nav nav-pills flex-column">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin" sec:authorize="hasRole('ADMIN')"
+                       aria-controls="v-pills-home" aria-selected="false">Admin</a>
+                    <a class="nav-link active" href="/user" sec:authorize="(hasAnyRole('ADMIN','USER'))"
+                       role="tab"
+                       aria-controls="v-pills-profile" aria-selected="true">User</a>
+                    <!--                    <a class="nav-link active" th:href="@{/user}">User</a>-->
+                </li>
+
+            </ul>
+        </div>
+
+        <!--        правая колонка-->
+        <div class="col-lg-10 bg-light">
+            <br>
+            <h1>User information page</h1>
+
+
+            <div class="w-100"></div>
+            <div class="col border bg-white">
+                <br/>
+
+                <div class="tab-content">
+                    <div class="tab-pane table-striped container-fluid active">
+                        <div class="row">
+                            <div class="col border bg-light">
+                                <p><h5>User info</h5>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col border bg-white">
+                                <br/>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Age</th>
+                                        <th>Occupation</th>
+                                        <th>Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="User">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </nav>
-        </header>
-        <main class="col-md-9 " >
-            <br><br>
-            <div>
-                <h1>User information-page</h1>
-                <table class="table caption-top">
-                    <tr>
-                        <td>ID</td>
-                        <td>NAME</td>
-                        <td>LAST NAME</td>
-                        <td>EMAIL</td>
-                        <td>USERNAME</td>
-                        <td>PASSWORD</td>
-                        <td>ROLES</td>
-                    </tr>
-                    <tr>
-                        <td th:text="${user.getId()}"></td>
-                        <td th:text="${user.getName()}"></td>
-                        <td th:text="${user.getLast_name()}"></td>
-                        <td th:text="${user.getEmail()}"></td>
-                        <td th:text="${user.getUsername()}"></td>
-                        <td th:text="${user.getPassword()}"></td>
-                        <td>
-                            <div th:each="role : ${user.getRoles()}" th:text="${role.getRole()}">Roles</div>
-                        <td>
-                    </tr>
-                </table>
             </div>
-        </main>
+        </div>
+
     </div>
 </div>
 
 
+<!--    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>-->
 
-<br><br>
+<!--    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">-->
+<!--        <input type="submit" value="Delete"/>-->
+<!--    </form>-->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" src="/user.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </body>
+
 </html>
-
-
