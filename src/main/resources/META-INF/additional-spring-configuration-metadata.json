@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "hibernate.enable_lazy_load_no_trans",
-      "type": "java.lang.String",
-      "description": "Description for hibernate.enable_lazy_load_no_trans."
-  }
-] }
