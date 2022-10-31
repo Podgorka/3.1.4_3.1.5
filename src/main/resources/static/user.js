@@ -1,7 +1,6 @@
 const url = 'api/user'
 let loggedInUser = document.querySelector('#User')
 
-//fetch(url, {mode: "no-cors"})
 fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -9,8 +8,8 @@ fetch(url)
                                 <td>${data.id}</td>
                                 <td>${data.username}</td>
                                 <td>${data.email}</td>
-                                <td>${data.age}</td>
-                                <td>${data.occupation}</td>
+                                <td>${data.name}</td>
+                                <td>${data.lastname}</td>
                                 <td>${data.roles.map(role => role.name === 'ROLE_USER' ? 'USER' : 'ADMIN')}</td>
                                 `
     })

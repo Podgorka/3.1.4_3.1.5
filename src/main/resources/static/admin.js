@@ -16,8 +16,8 @@ const renderUsers = async (users) => {
                     <td>${user.id}</td> 
                     <td>${user.username}</td> 
                     <td>${user.email}</td> 
-                    <td>${user.age}</td> 
-                    <td>${user.occupation}</td> 
+                    <td>${user.name}</td> 
+                    <td>${user.lastname}</td> 
                     <td>${user.roles.map(role => role.name === 'ROLE_USER' ? 'USER' : 'ADMIN')}</td> 
                     
               <td> 
@@ -46,7 +46,7 @@ const removeUser = (id) => {
     renderUsers(users);
 }
 
-// GET ALL users
+// all users
 const info = document.querySelector('#allUsers');
 const url = 'api/admin'
 
@@ -57,13 +57,13 @@ fetch(url, {mode: 'cors'})
         renderUsers(data)
     })
 
-// ADD user
+// create
 
 const addUserForm = document.querySelector('#addUser')
 const addUsername = document.getElementById('addUsername')
 const addEmail = document.getElementById('addEmail')
-const addAge = document.getElementById('addAge')
-const addOccupation = document.getElementById('addOccupation')
+const addName = document.getElementById('addName')
+const addLastname = document.getElementById('addLastname')
 const addPassword = document.getElementById('addPassword')
 const addRoles = document.getElementById('addRoles')
 console.log(addRoles)
@@ -124,8 +124,8 @@ on(document, 'click', '#edit-user', e => {
     document.getElementById('editUsername').value = userInfo.children[1].innerHTML
     document.getElementById('editEmail').value = userInfo.children[2].innerHTML
     document.getElementById('editPassword').value = userInfo.children[6].innerHTML
-    document.getElementById('editAge').value = userInfo.children[3].innerHTML
-    document.getElementById('editOccupation').value = userInfo.children[4].innerHTML
+    document.getElementById('editName').value = userInfo.children[3].innerHTML
+    document.getElementById('editLastname').value = userInfo.children[4].innerHTML
     document.getElementById('editRoles').value = userInfo.children[5].innerHTML
 
 
@@ -195,8 +195,8 @@ on(document, 'click', '#delete-user', e => {
     document.getElementById('delId').value = fila2.children[0].innerHTML
     document.getElementById('delUsername').value = fila2.children[1].innerHTML
     document.getElementById('delEmail').value = fila2.children[2].innerHTML
-    document.getElementById('delAge').value = fila2.children[3].innerHTML
-    document.getElementById('delOccupation').value = fila2.children[4].innerHTML
+    document.getElementById('delName').value = fila2.children[3].innerHTML
+    document.getElementById('delLastname').value = fila2.children[4].innerHTML
     document.getElementById('delRoles').value = fila2.children[5].innerHTML
 
     $("#modalDelete").modal("show")

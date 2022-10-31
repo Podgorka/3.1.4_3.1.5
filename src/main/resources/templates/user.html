@@ -11,10 +11,9 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <form class="form-inline">
-            <b><!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
-                <span class="navbar-text-xl text-white" th:text="${user.email}"></span></b>
+            <b>
+            <span class="navbar-text-xl text-white" th:text="${user.email}"></span></b>
             <span class="navbar-text-xl text-white">&nbsp with roles: &nbsp</span>
-            <!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
             <span class="navbar-text-xl text-white" th:text="${user.getRolesAsString()}"></span>
         </form>
         <ul class="navbar-nav float-lg-right">
@@ -24,11 +23,9 @@
         </ul>
     </div>
 </nav>
-
+<br>
 <div class="container-fluid bg-light">
     <div class="row">
-        <!--        левая колонка-->
-
         <div class="col-lg-2 bg-white min-vh-100">
             <ul class="nav nav-pills flex-column">
 
@@ -38,13 +35,12 @@
                     <a class="nav-link active" href="/user" sec:authorize="(hasAnyRole('ADMIN','USER'))"
                        role="tab"
                        aria-controls="v-pills-profile" aria-selected="true">User</a>
-                    <!--                    <a class="nav-link active" th:href="@{/user}">User</a>-->
                 </li>
 
             </ul>
         </div>
 
-        <!--        правая колонка-->
+        <!--add-->
         <div class="col-lg-10 bg-light">
             <br>
             <h1>User information page</h1>
@@ -69,7 +65,7 @@
                                         <th>ID</th>
                                         <th>Username</th>
                                         <th>Email</th>
-                                        <th>Age</th>
+                                        <th>Name</th>
                                         <th>Occupation</th>
                                         <th>Role</th>
                                     </tr>
@@ -86,15 +82,6 @@
 
     </div>
 </div>
-
-
-<!--    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>-->
-
-<!--    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">-->
-<!--        <input type="submit" value="Delete"/>-->
-<!--    </form>-->
-
-
 
 <script type="text/javascript" src="/user.js"></script>
 

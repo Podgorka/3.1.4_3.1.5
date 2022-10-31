@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -16,10 +14,8 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <form class="form-inline">
-            <b><!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
                 <span class="navbar-text-xl text-white" th:text="${user.getEmail}"></span></b>
             <span class="navbar-text-xl text-white">&nbsp with roles: &nbsp</span>
-            <!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.model.User"*/-->
             <span class="navbar-text-xl text-white" th:text="${user.getRolesAsString()}"></span>
         </form>
 
@@ -64,7 +60,6 @@
             <h1>Admin panel</h1>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <!--   добавил id  -->
                     <a id="add_new_user" class="nav-link active" href="#users_table" data-toggle="tab"
                        onclick="return show('users_table','addUser');">Table of users</a>
                 </li>
@@ -73,9 +68,6 @@
                        onclick="return show('addUser','users_table');">Add new user</a>
                 </li>
             </ul>
-
-            <!--                    Таблица-->
-
             <div class="tab-content">
                 <div class="tab-pane table-striped container-fluid active" id="users_table">
                     <div class="row">
@@ -85,14 +77,14 @@
                         <div class="w-100"></div>
                         <div class="col border bg-white">
                             <br/>
-                            <table class="table table-hover">
+                            <table class="table caption-top">
                                 <thread>
                                     <tr>
                                         <th>Id</th>
                                         <th>Username</th>
                                         <th>Email</th>
-                                        <th>Age</th>
-                                        <th>Occupation</th>
+                                        <th>Name</th>
+                                        <th>Last Name</th>
                                         <th>Role</th>
 
                                         <th>Edit</th>
@@ -106,9 +98,67 @@
                     </div>
                 </div>
             </div>
+            <table class="table caption-top">
+                <div align="center" >
+            <div class="tab-pane container-fluid fade" id="addUser">
+                <div class="row">
+                    <div class="col border bg-light">
+                        <p><h5>Add new user</h5></p>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col border bg-white text-center">
+                        <br/>
+
+                        <form id="addForm">
+                            <div class="form-group row justify-content-center">
+                                <div class="col-sm-4">
+                                    <strong><label for="addUsername">User name</label></strong>
+                                    <br/>
+                                    <input type="text" class="form-control" name="username" id="addUsername"
+                                           placeholder="User name" required minlength="1" maxlength="50">
+
+                                    <strong><label for="addEmail">Email</label></strong>
+                                    <br/>
+                                    <input type="text" class="form-control" name="email" id="addEmail"
+                                           placeholder="email" required minlength="1" maxlength="20">
+
+                                    <strong><label for="addName">Name</label></strong>
+                                    <br/>
+                                    <input type="text" class="form-control" name="name" id="addName"
+                                           placeholder="name" required minlength="1" maxlength="20">
+
+                                    <strong><label for="addLastname">Last Name</label></strong>
+                                    <br/>
+                                    <input type="text" class="form-control" name="lastname" id="addLastname"
+                                           placeholder="Lastname" required minlength="1" maxlength="20">
 
 
-            <!--                                                        модальное окно edit-->
+                                    <strong><label for="addPassword">Password</label></strong>
+                                    <br/>
+                                    <input type="password" class="form-control" name="password"
+                                           id="addPassword" placeholder="Password" required>
+
+                                    <strong><label for="addRoles">Role</label></strong>
+                                    <select multiple class="custom-select w-100"
+                                            size="2" id="addRoles" name="nameRoles">
+                                        <option value="1_ADMIN">ADMIN</option>
+                                        <option value="2_USER" selected>USER</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success" value="Add new user" id="add">
+                                Add new user
+                            </button>
+                            <br/>
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </table>
+            <!--edit-->
 
             <div class="modal" id="modalEdit">
                 <div class="modal-dialog">
@@ -144,13 +194,13 @@
                                                name="password" id="editPassword">
                                         <br/>
 
-                                        <strong><label for="editAge">Age</label></strong>
+                                        <strong><label for="editName">Name</label></strong>
                                         <input type="text" class="form-control"
-                                               name="age" id="editAge">
+                                               name="name" id="editName">
                                         <br/>
-                                        <strong><label for="editOccupation">Occupation</label></strong>
+                                        <strong><label for="editLastname">Last Name</label></strong>
                                         <input type="text" class="form-control"
-                                               name="occupation" id="editOccupation">
+                                               name="lastname" id="editLastname">
                                         <br/>
 
                                         <strong><label for="editRoles">Role</label></strong>
@@ -178,7 +228,7 @@
 
             </td>
 
-            <!--  Delete-->
+            <!--Delete-->
 
             <div class="modal" id="modalDelete">
                 <div class="modal-dialog">
@@ -215,18 +265,18 @@
 
                                         <br/>
 
-                                        <strong><label for="delAge">Age</label></strong>
+                                        <strong><label for="delName">Name</label></strong>
                                         <br/>
                                         <input type="text" class="form-control"
-                                               th:name="age" id="delAge"
+                                               th:name="name" id="delName"
                                                readonly>
 
                                         <br/>
 
-                                        <strong><label for="delOccupation">Occupation</label></strong>
+                                        <strong><label for="delLastname">Last Name</label></strong>
                                         <br/>
                                         <input type="text" class="form-control"
-                                               th:name="occupation" id="delOccupation"
+                                               th:name="lastname" id="delLastname"
                                                readonly>
 
                                         <br/>
@@ -258,77 +308,19 @@
 </div>
 
 
-<!--                New User-->
-<div class="tab-pane container-fluid fade" id="addUser">
-    <div class="row">
-        <div class="col border bg-light">
-            <p><h5>Add new user</h5></p>
-        </div>
-        <div class="w-100"></div>
-        <div class="col border bg-white text-center">
-            <br/>
-            <form id="addForm">
-                <div class="form-group row justify-content-center">
-                    <div class="col-sm-4">
-                        <strong><label for="addUsername">User name</label></strong>
-                        <br/>
-                        <input type="text" class="form-control" name="username" id="addUsername"
-                               placeholder="User name" required minlength="1" maxlength="50">
-
-                        <strong><label for="addEmail">Email</label></strong>
-                        <br/>
-                        <input type="text" class="form-control" name="email" id="addEmail"
-                               placeholder="email" required minlength="1" maxlength="20">
-
-                        <strong><label for="addAge">Age</label></strong>
-                        <br/>
-                        <input type="number" class="form-control" name="age" id="addAge"
-                               placeholder="0">
-
-                        <strong><label for="addOccupation">Occupation</label></strong>
-                        <br/>
-                        <input type="text" class="form-control" name="occupation" id="addOccupation"
-                               placeholder="Occupation" required minlength="1" maxlength="20">
+        <!--New User-->
 
 
-                        <strong><label for="addPassword">Password</label></strong>
-                        <br/>
-                        <input type="password" class="form-control" name="password"
-                               id="addPassword" placeholder="Password" required>
+    <script type="text/javascript" src="/admin.js"></script>
 
-                        <strong><label for="addRoles">Role</label></strong>
-                        <select multiple class="custom-select w-100"
-                                size="2" id="addRoles" name="nameRoles">
-                            <option value="1_ADMIN">ADMIN</option>
-                            <option value="2_USER" selected>USER</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success" value="Add new user" id="add">
-                    Add new user
-                </button>
-                <br/>
-                <br/>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Optional JavaScript -->
-<script type="text/javascript" src="/admin.js"></script>
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 </html>
