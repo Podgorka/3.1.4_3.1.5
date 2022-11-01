@@ -81,7 +81,6 @@
                                 <thread>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Username</th>
                                         <th>Email</th>
                                         <th>Name</th>
                                         <th>Last Name</th>
@@ -112,10 +111,6 @@
                         <form id="addForm">
                             <div class="form-group row justify-content-center">
                                 <div class="col-sm-4">
-                                    <strong><label for="addUsername">User name</label></strong>
-                                    <br/>
-                                    <input type="text" class="form-control" name="username" id="addUsername"
-                                           placeholder="User name" required minlength="1" maxlength="50">
 
                                     <strong><label for="addEmail">Email</label></strong>
                                     <br/>
@@ -177,11 +172,6 @@
                                                name="id" id="editId" readonly>
                                         <br/>
 
-                                        <strong><label for="editUsername">Username</label></strong>
-                                        <input type="text" class="form-control"
-                                               name="username" id="editUsername"
-                                               required minlength="1" maxlength="50">
-                                        <br/>
 
                                         <strong><label for="editEmail">Email</label></strong>
                                         <input type="text" class="form-control"
@@ -250,12 +240,6 @@
                                                readonly>
                                         <br/>
 
-                                        <strong><label for="delUsername">Username</label></strong>
-                                        <br/>
-                                        <input type="text" class="form-control"
-                                               th:name="username" id="delUsername"
-                                               readonly>
-                                        <br/>
 
                                         <strong><label for="delEmail">Email</label></strong>
                                         <br/>

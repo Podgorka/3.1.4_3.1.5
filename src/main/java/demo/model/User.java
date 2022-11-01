@@ -18,8 +18,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "email", nullable = false, unique = true)
@@ -38,22 +36,17 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, List<Role> roles) {
-        this.username = username;
+    public User(String email, String password, List<Role> roles) {
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }
-    public User(String email, String name, String lastname, String username, String password, List<Role> roles) {
+    public User(String email, String name, String lastname, String password, List<Role> roles) {
         this.email = email;
         this.name = name;
         this.lastname = lastname;
-        this.username = username;
         this.password = password;
         this.roles = roles;
-    }
-
-    private void addRole(Role role){
-        roles.add(role);
     }
 
 
@@ -77,7 +70,12 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
+    }
+
+
+    public String getEmail() {
+        return email;
     }
 
     @Override

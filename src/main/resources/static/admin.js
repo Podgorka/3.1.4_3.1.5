@@ -3,18 +3,17 @@ const renderUsers = async (users) => {
 
     if (response.ok) {
         let json = await response.json()
-            .then(data => fuckedFunction(data));
+            .then(data => itworks(data));
     } else {
         alert("Ошибка HTTP: " + response.status);
     }
 
-    function fuckedFunction (users) {
+    function itworks (users) {
         output = ''
         users.forEach(user => {
             output += ` 
               <tr> 
                     <td>${user.id}</td> 
-                    <td>${user.username}</td> 
                     <td>${user.email}</td> 
                     <td>${user.name}</td> 
                     <td>${user.lastname}</td> 
@@ -60,7 +59,6 @@ fetch(url, {mode: 'cors'})
 // create
 
 const addUserForm = document.querySelector('#addUser')
-const addUsername = document.getElementById('addUsername')
 const addEmail = document.getElementById('addEmail')
 const addName = document.getElementById('addName')
 const addLastname = document.getElementById('addLastname')
@@ -121,12 +119,11 @@ const on = (element, event, selector, handler) => {
 on(document, 'click', '#edit-user', e => {
     const userInfo = e.target.parentNode.parentNode
     document.getElementById('editId').value = userInfo.children[0].innerHTML
-    document.getElementById('editUsername').value = userInfo.children[1].innerHTML
-    document.getElementById('editEmail').value = userInfo.children[2].innerHTML
-    document.getElementById('editPassword').value = userInfo.children[6].innerHTML
-    document.getElementById('editName').value = userInfo.children[3].innerHTML
-    document.getElementById('editLastname').value = userInfo.children[4].innerHTML
-    document.getElementById('editRoles').value = userInfo.children[5].innerHTML
+    document.getElementById('editEmail').value = userInfo.children[1].innerHTML
+    document.getElementById('editPassword').value = userInfo.children[5].innerHTML
+    document.getElementById('editName').value = userInfo.children[2].innerHTML
+    document.getElementById('editLastname').value = userInfo.children[3].innerHTML
+    document.getElementById('editRoles').value = userInfo.children[4].innerHTML
 
 
 
@@ -193,11 +190,10 @@ on(document, 'click', '#delete-user', e => {
     currentUserId = fila2.children[0].innerHTML
 
     document.getElementById('delId').value = fila2.children[0].innerHTML
-    document.getElementById('delUsername').value = fila2.children[1].innerHTML
-    document.getElementById('delEmail').value = fila2.children[2].innerHTML
-    document.getElementById('delName').value = fila2.children[3].innerHTML
-    document.getElementById('delLastname').value = fila2.children[4].innerHTML
-    document.getElementById('delRoles').value = fila2.children[5].innerHTML
+    document.getElementById('delEmail').value = fila2.children[1].innerHTML
+    document.getElementById('delName').value = fila2.children[2].innerHTML
+    document.getElementById('delLastname').value = fila2.children[3].innerHTML
+    document.getElementById('delRoles').value = fila2.children[4].innerHTML
 
     $("#modalDelete").modal("show")
 })

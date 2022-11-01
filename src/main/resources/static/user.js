@@ -6,7 +6,6 @@ fetch(url)
     .then(data => {
         loggedInUser.innerHTML = `
                                 <td>${data.id}</td>
-                                <td>${data.username}</td>
                                 <td>${data.email}</td>
                                 <td>${data.name}</td>
                                 <td>${data.lastname}</td>

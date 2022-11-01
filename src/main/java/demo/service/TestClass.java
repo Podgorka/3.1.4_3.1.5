@@ -6,9 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class TestClass {
@@ -25,10 +23,10 @@ public class TestClass {
         Role roleAdmin = new Role(2, "ROLE_ADMIN");
         List<Role> roles = new ArrayList<>();
         roles.add(roleUser);
-        User user = new User("user", "user","user", "user", "user", roles);
+        User user = new User( "user","user", "user", "user", roles);
         userService.saveUser(user);
         roles.add(roleAdmin);
-        User admin = new User("admin", "admin","admin", "admin", "admin", roles);
+        User admin = new User( "admin","admin", "admin", "admin", roles);
         userService.saveUser(admin);
     }
 

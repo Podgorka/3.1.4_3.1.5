@@ -9,7 +9,7 @@ public interface UserService {
 
     User showUser(long id);
 
-    User showUserByUsername(String username);
+    User showUserByUsername(String email);
 
     boolean saveUser(User user);
 
